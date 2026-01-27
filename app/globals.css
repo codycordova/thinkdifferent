@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9f9f7;
+  --foreground: #111;
+  --paper-white: #f9f9f7;
+  --soft-black: #111;
 }
 
 @theme inline {
@@ -10,17 +12,88 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-handwritten: var(--font-caveat);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper-white);
+  color: var(--soft-black);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Handwritten accent font utility */
+.font-handwritten {
+  font-family: var(--font-caveat), cursive;
+}
+
+/* Micro-movement animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.micro-fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.micro-fade-in-simple {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Scroll fade-in utility for doodles */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button press effect (ink on paper) */
+.button-press {
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.button-press:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--soft-black);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
