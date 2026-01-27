@@ -21,7 +21,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Think Different - Wear What You Imagine",
+  title: "Think Different",
   description: "Fostering creativity, celebrating individuality, and encouraging unique ideas. Created to create.",
 };
 

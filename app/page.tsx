@@ -97,9 +97,6 @@ export default function Home() {
 
             {/* Brand Taglines */}
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-[#111] tracking-tight micro-fade-in">
-                Wear what you imagine
-              </h1>
               <p className="text-lg sm:text-xl text-[#111]/70 font-handwritten micro-fade-in-simple">
                 created to create
               </p>
