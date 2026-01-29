@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: "Think Different",
   description: "Fostering creativity, celebrating individuality, and encouraging unique ideas. Created to create.",
   icons: {
-    icon: '/favicon.ico?v=' + Date.now(), // Cache busting with timestamp
+    icon: '/favicon.ico?v=2', // Cache busting - increment when favicon changes
   },
 };
 
