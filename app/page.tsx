@@ -97,7 +97,7 @@ export default function Home() {
 
             {/* Brand Taglines */}
             <div className="space-y-4">
-              <p className="text-lg sm:text-xl text-[#111]/70 font-handwritten micro-fade-in-simple">
+              <p className="text-xl sm:text-2xl text-[#111]/70 font-handwritten font-bold micro-fade-in-simple">
                 created to create
               </p>
               <p className="text-base sm:text-lg text-[#111]/60 font-handwritten micro-fade-in-simple">
@@ -121,7 +121,7 @@ export default function Home() {
                     Individuality
                   </h3>
                   <p className="text-sm text-[#111]/70 font-light">
-                    Celebrating those who see differently
+                    Celebrating those who think different
                   </p>
                 </div>
                 <div className="space-y-2">
