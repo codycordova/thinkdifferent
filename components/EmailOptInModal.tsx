@@ -60,6 +60,7 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const {
     register,
@@ -100,6 +101,8 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
     setIsLoading(true);
     setError(null);
 
+    // Always show the discount code, even if API fails
+    // Try to save to database in the background
     try {
       const response = await fetch('/api/leads', {
         method: 'POST',
@@ -113,18 +116,22 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit. Please try again.');
-      }
+      const responseData = await response.json();
 
-      setIsSubmitted(true);
-      // Mark modal as shown so it doesn't appear again
-      localStorage.setItem('thinkdifferent_modal_shown', 'true');
+      if (!response.ok) {
+        console.warn('Failed to save to database:', responseData.error);
+        // Still show discount code even if save fails
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setIsLoading(false);
+      console.error('Form submission error:', err);
+      // Still show discount code even if API call fails
     }
+
+    // Always show success and discount code
+    setIsSubmitted(true);
+    // Mark modal as shown so it doesn't appear again
+    localStorage.setItem('thinkdifferent_modal_shown', 'true');
+    setIsLoading(false);
   };
 
   if (!isOpen) return null;
@@ -233,11 +240,27 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
               Your discount code is:
             </p>
             <div className="mb-6">
-              <div className="inline-block border-2 border-[#111] p-4">
+              <div 
+                className="inline-block border-2 border-[#111] p-4 cursor-pointer hover:bg-[#111]/5 transition-colors relative group"
+                onClick={() => {
+                  navigator.clipboard.writeText('THINK10');
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                }}
+                title="Click to copy"
+              >
                 <p className="text-3xl font-light text-[#111] tracking-wider">THINK10</p>
+                {copied && (
+                  <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#111] text-[#f9f9f7] text-xs px-2 py-1 rounded whitespace-nowrap">
+                    Copied!
+                  </span>
+                )}
               </div>
               <p className="mt-2 text-sm text-[#111]/70 font-light">
                 10% off your first purchase
+              </p>
+              <p className="mt-1 text-xs text-[#111]/50 font-light">
+                Click code to copy
               </p>
             </div>
             <Button onClick={onClose} variant="primary" className="w-full">
