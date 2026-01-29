@@ -7,47 +7,26 @@ import { z } from 'zod';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 
-const leadSchema = z
-  .object({
-    email: z.string().optional(),
-    phone: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      const hasEmail = data.email && data.email.trim().length > 0;
-      const hasPhone = data.phone && data.phone.trim().length > 0;
-      return hasEmail || hasPhone;
-    },
-    {
-      message: 'Please provide either an email or phone number',
-      path: ['email'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.email && data.email.trim().length > 0) {
-        return z.string().email().safeParse(data.email).success;
-      }
-      return true;
-    },
-    {
-      message: 'Please provide a valid email address',
-      path: ['email'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.phone && data.phone.trim().length > 0) {
-        const digitsOnly = data.phone.replace(/\D/g, '');
+const leadSchema = z.object({
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .max(100, 'Name must be 100 characters or less')
+    .trim(),
+  phone: z
+    .string()
+    .min(1, 'Phone number is required')
+    .max(20, 'Phone number must be 20 characters or less')
+    .refine(
+      (val) => {
+        const digitsOnly = val.replace(/\D/g, '');
         return digitsOnly.length >= 10;
+      },
+      {
+        message: 'Please provide a valid phone number (at least 10 digits)',
       }
-      return true;
-    },
-    {
-      message: 'Please provide a valid phone number (at least 10 digits)',
-      path: ['phone'],
-    }
-  );
+    ),
+});
 
 type LeadFormData = z.infer<typeof leadSchema>;
 
@@ -67,27 +46,9 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
-    setValue,
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadSchema),
   });
-
-  const emailValue = watch('email');
-  const phoneValue = watch('phone');
-
-  // Clear the other field when one is entered
-  useEffect(() => {
-    if (emailValue && emailValue.trim().length > 0) {
-      setValue('phone', '');
-    }
-  }, [emailValue, setValue]);
-
-  useEffect(() => {
-    if (phoneValue && phoneValue.trim().length > 0) {
-      setValue('email', '');
-    }
-  }, [phoneValue, setValue]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -110,8 +71,8 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: data.email && data.email.trim().length > 0 ? data.email.trim() : null,
-          phone: data.phone && data.phone.trim().length > 0 ? data.phone.trim() : null,
+          name: data.name.trim(),
+          phone: data.phone.trim(),
           discount_code: 'THINK10',
         }),
       });
@@ -162,41 +123,34 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
               Get 10% Off
             </h2>
             <p className="text-[#111]/70 mb-6 font-light">
-              Enter your email or phone number to activate your discount code
+              Enter your name and phone number to activate your discount code
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <Input
-                  type="email"
-                  placeholder="Email address"
-                  {...register('email')}
-                  disabled={!!phoneValue}
+                  type="text"
+                  id="lead-name"
+                  name="name"
+                  placeholder="Your name"
+                  maxLength={100}
+                  {...register('name')}
                 />
-                {errors.email && (
+                {errors.name && (
                   <p className="mt-1 text-sm text-[#111]/70">
-                    {errors.email.message}
+                    {errors.name.message}
                   </p>
                 )}
-              </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-[#111]" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-[#f9f9f7] px-2 text-[#111]/50">
-                    or
-                  </span>
-                </div>
               </div>
 
               <div>
                 <Input
                   type="tel"
+                  id="lead-phone"
+                  name="phone"
                   placeholder="Phone number"
+                  maxLength={20}
                   {...register('phone')}
-                  disabled={!!emailValue}
                 />
                 {errors.phone && (
                   <p className="mt-1 text-sm text-[#111]/70">
