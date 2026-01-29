@@ -23,6 +23,9 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "Think Different",
   description: "Fostering creativity, celebrating individuality, and encouraging unique ideas. Created to create.",
+  icons: {
+    icon: '/favicon.ico?v=' + Date.now(), // Cache busting with timestamp
+  },
 };
 
 export default function RootLayout({
