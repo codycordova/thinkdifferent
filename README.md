@@ -21,6 +21,8 @@ A minimal, mobile-first foundation website for **Think Different** clothing bran
 - 🎬 **Micro-Animations** - Subtle fade-ins and button press effects
 - 🔒 **Secure Lead Storage** - Supabase integration with Row Level Security (RLS)
 - 📋 **Return Policy Page** - Clear, scannable return policy information
+- 🛠️ **Admin Builder** - Drag-and-drop page builder with proposal saving and GitHub PR creation
+- 📷 **Social Links** - Instagram (@uthinkdifferent) and TikTok (@uhinkdifferent)
 
 ## Tech Stack
 
@@ -76,20 +78,25 @@ npm run dev
 ```
 thinkdifferent/
 ├── app/
+│   ├── admin/              # Admin dashboard & builder
+│   │   ├── builder/         # Drag-and-drop page builder
+│   │   └── page.tsx         # Admin login
 │   ├── api/
-│   │   └── leads/          # API route for lead collection
+│   │   ├── admin/          # Admin & proposals API
+│   │   └── leads/          # Lead collection API
 │   ├── return-policy/      # Return policy page
 │   ├── globals.css         # Global styles & animations
 │   ├── layout.tsx          # Root layout with fonts
 │   └── page.tsx            # Homepage
 ├── components/
+│   ├── admin/              # Admin builder components
 │   ├── ui/                 # Reusable UI components
-│   │   ├── Button.tsx
-│   │   └── Input.tsx
-│   ├── EmailOptInModal.tsx # Lead collection modal
+│   ├── EmailOptInModal.tsx  # Lead collection modal
 │   └── Navigation.tsx      # Mobile-first navigation
 └── lib/
-    └── supabase.ts         # Supabase client configuration
+    ├── supabase.ts         # Supabase client
+    ├── github-app.ts       # GitHub App auth for PR creation
+    └── types/              # Shared types
 ```
 
 ## Key Features Explained
@@ -113,6 +120,13 @@ thinkdifferent/
 |----------|-------------|----------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Your Supabase publishable key | Yes |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (admin operations) | For admin builder |
+| `ADMIN_PASSWORD` | Password for `/admin` routes | For admin access |
+| `GITHUB_APP_ID` | GitHub App ID | For PR creation from builder |
+| `GITHUB_APP_PRIVATE_KEY` | GitHub App private key (PEM, single line) | For PR creation |
+| `GITHUB_APP_INSTALLATION_ID` | GitHub App installation ID | For PR creation |
+| `GITHUB_REPO_OWNER` | Repository owner (e.g. codycordova) | Optional |
+| `GITHUB_REPO_NAME` | Repository name (e.g. thinkdifferent) | Optional |
 
 ## Build & Deploy
 
@@ -133,9 +147,14 @@ The easiest way to deploy is using [Vercel](https://vercel.com):
 3. Add your environment variables
 4. Deploy!
 
-## Instagram
+## Social
 
-Follow us: [@uthinkdifferent](https://instagram.com/uthinkdifferent)
+- **Instagram**: [@uthinkdifferent](https://instagram.com/uthinkdifferent)
+- **TikTok**: [@uhinkdifferent](https://tiktok.com/@uhinkdifferent)
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for supported versions and how to report vulnerabilities.
 
 ## License
 
