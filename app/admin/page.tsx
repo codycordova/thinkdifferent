@@ -165,12 +165,21 @@ export default function AdminPage() {
               View all collected leads and discount code activations
             </p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="text-sm px-4 py-2 border border-[#111] text-[#111] hover:bg-[#111] hover:text-[#f9f9f7] transition-colors font-light"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-4">
+            <Button
+              variant="outline"
+              onClick={() => window.location.href = '/admin/builder'}
+              className="text-sm"
+            >
+              Go to Builder
+            </Button>
+            <button
+              onClick={handleLogout}
+              className="text-sm px-4 py-2 border border-[#111] text-[#111] hover:bg-[#111] hover:text-[#f9f9f7] transition-colors font-light"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {isLoading ? (

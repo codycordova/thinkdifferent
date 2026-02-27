@@ -29,7 +29,11 @@ function getSupabaseAdminClient(): SupabaseClient {
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
-    throw new Error('Missing Supabase admin environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your .env.local file.');
+    const isProduction = process.env.NODE_ENV === 'production';
+    const envHint = isProduction
+      ? 'Vercel project settings (Environment Variables)'
+      : '.env.local file';
+    throw new Error(`Missing Supabase admin environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your ${envHint}.`);
   }
 
   supabaseAdminClient = createClient(supabaseUrl, supabaseServiceRoleKey, {
