@@ -37,14 +37,6 @@ export default function Navigation() {
             >
               Return Policy
             </Link>
-            <a
-              href="https://instagram.com/uthinkdifferent"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-light text-[#111] hover:underline transition-all"
-            >
-              @uthinkdifferent
-            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,15 +82,6 @@ export default function Navigation() {
             >
               Return Policy
             </Link>
-            <a
-              href="https://instagram.com/uthinkdifferent"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsOpen(false)}
-              className="block text-base font-light text-[#111] hover:underline transition-all"
-            >
-              @uthinkdifferent
-            </a>
           </div>
         </div>
       )}
