@@ -131,7 +131,6 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
                 <Input
                   type="text"
                   id="lead-name"
-                  name="name"
                   placeholder="Your name"
                   maxLength={100}
                   {...register('name')}
@@ -147,7 +146,6 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
                 <Input
                   type="tel"
                   id="lead-phone"
-                  name="phone"
                   placeholder="Phone number"
                   maxLength={20}
                   {...register('phone')}
