@@ -21,6 +21,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.thinkdifferent.sale'),
   title: "Think Different",
   description: "Fostering creativity, celebrating individuality, and encouraging unique ideas. Created to create.",
   icons: {
