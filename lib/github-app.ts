@@ -19,14 +19,27 @@ function normalizePrivateKey(key: string): string {
   parsed = parsed.replace(/\\n/g, '\n').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
   // If body is one long line, wrap to 64 chars (valid PEM)
+  // universal-github-app-jwt uses .split("\n").slice(1,-1).join("") - needs real newlines
   const beginMatch = parsed.match(/-----BEGIN [^-]+-----\n?/);
   const endMatch = parsed.match(/\n?-----END [^-]+-----$/);
   if (beginMatch && endMatch) {
-    const body = parsed.slice(beginMatch[0].length, parsed.length - endMatch[0].length).replace(/\s/g, '');
+    let body = parsed
+      .slice(beginMatch[0].length, parsed.length - endMatch[0].length)
+      .replace(/\s/g, '')
+      .replace(/[^A-Za-z0-9+/=]/g, ''); // Strip invalid base64 chars (fixes "Invalid character" from atob)
     if (body.length > 0 && !body.includes('\n')) {
       const wrapped = body.match(/.{1,64}/g)?.join('\n') ?? body;
       parsed = `${beginMatch[0]}${wrapped}\n${endMatch[0]}`;
     }
+  }
+
+  // Ensure PEM has header + body + footer (avoids "Invalid keyData" from Web Crypto importKey)
+  const lines = parsed.split('\n').filter((l) => l.trim());
+  const bodyLines = lines.slice(1, -1).join('');
+  if (lines.length < 3 || bodyLines.length === 0) {
+    throw new Error(
+      'GITHUB_APP_PRIVATE_KEY is malformed. In Vercel: paste the full .pem as one line with \\n for newlines, or use a single-line key (no newlines in base64).'
+    );
   }
 
   // PKCS#1 (RSA PRIVATE KEY) is often rejected by OpenSSL 3 - convert to PKCS#8

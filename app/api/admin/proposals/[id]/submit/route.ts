@@ -39,8 +39,14 @@ export async function POST(
     try {
       octokit = await getGitHubAppOctokit();
     } catch (error: any) {
+      const msg = error.message || 'Failed to initialize GitHub App';
+      const isKeyError = /Invalid keyData|Invalid character|invalid key|malformed|private key/i.test(msg);
       return NextResponse.json(
-        { error: error.message || 'Failed to initialize GitHub App' },
+        {
+          error: isKeyError
+            ? 'GitHub App private key invalid. In Vercel: paste the full key as ONE line with NO newlines (same as .env.local). Avoid \\n - use the raw single-line format.'
+            : msg,
+        },
         { status: 500 }
       );
     }
@@ -140,7 +146,23 @@ export async function POST(
       }
     }
 
-    // Create file update
+    // Get current file SHA (required when updating existing file per GitHub API)
+    let fileSha: string | undefined;
+    try {
+      const { data: fileData } = await octokit.rest.repos.getContent({
+        owner: repoOwner,
+        repo: repoName,
+        path: 'app/page.tsx',
+        ref: branchName,
+      });
+      if (fileData && !Array.isArray(fileData) && 'sha' in fileData) {
+        fileSha = fileData.sha;
+      }
+    } catch {
+      // File may not exist yet (create vs update) - sha not required for new files
+    }
+
+    // Create or update file
     await octokit.rest.repos.createOrUpdateFileContents({
       owner: repoOwner,
       repo: repoName,
@@ -148,6 +170,7 @@ export async function POST(
       message: `Proposal: ${proposal.title}`,
       content: Buffer.from(code).toString('base64'),
       branch: branchName,
+      ...(fileSha && { sha: fileSha }),
     });
 
     // Create PR
@@ -177,16 +200,13 @@ export async function POST(
     });
   } catch (error: any) {
     console.error('Failed to submit proposal:', error);
-    console.error('Error details:', {
-      message: error.message,
-      status: error.status,
-      response: error.response?.data,
-      stack: error.stack,
-    });
+    const msg = error.message || 'Failed to submit proposal';
+    const isKeyError = /Invalid keyData|Invalid character|invalid key|malformed|private key/i.test(msg);
     return NextResponse.json(
-      { 
-        error: error.message || 'Failed to submit proposal',
-        details: error.response?.data || error.stack,
+      {
+        error: isKeyError
+          ? 'GitHub App private key invalid. In Vercel: paste the full key as ONE line with NO newlines (same as .env.local). Avoid \\n - use the raw single-line format.'
+          : msg,
       },
       { status: 500 }
     );
