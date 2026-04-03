@@ -35,10 +35,10 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
   return (
     <div className="mt-10 sm:mt-12">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-        <div className="w-full sm:max-w-md">
+      <div className="flex flex-col items-center gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex w-full max-w-md flex-col items-center lg:items-start">
           <p className="text-sm text-[#111]/70 font-light">Select size</p>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex w-full flex-wrap justify-center gap-2 lg:justify-start">
             {sizes.map((s) => {
               const qty = getStock(product, s);
               const soldOut = qty <= 0;
@@ -69,19 +69,19 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             })}
           </div>
           {stockHint && (
-            <p className="mt-3 text-xs font-light text-red-700">{stockHint}</p>
+            <p className="mt-3 text-center text-xs font-light text-red-700 lg:text-left">{stockHint}</p>
           )}
           {!canBuy && (
-            <p className="mt-2 text-xs text-[#111]/60 font-light">
+            <p className="mt-2 text-center text-xs text-[#111]/60 font-light lg:text-left">
               Pick an in-stock size to continue.
             </p>
           )}
         </div>
 
-        <div className="sm:text-right sm:min-w-[200px]">
+        <div className="flex w-full justify-center lg:w-auto lg:min-w-[200px] lg:justify-end">
           <Button
             variant="primary"
-            className="w-full sm:w-auto"
+            className="w-full lg:w-auto"
             disabled={!canBuy}
             onClick={goToWaitlist}
           >
