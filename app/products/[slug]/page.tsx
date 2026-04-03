@@ -12,7 +12,7 @@ export default async function ProductDetailPage(props: { params: Promise<Params>
   if (!product) return notFound();
 
   return (
-    <main className="min-h-screen bg-[#f9f9f7] px-4 py-10 sm:py-14">
+    <main className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] px-4 py-10 sm:py-14">
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-6">
           <Link
@@ -28,7 +28,7 @@ export default async function ProductDetailPage(props: { params: Promise<Params>
             {product.images.map((img) => (
               <div
                 key={img.src}
-                className="border border-[#111] overflow-hidden bg-[radial-gradient(circle_at_50%_10%,rgba(17,17,17,0.06),transparent_55%)]"
+                className="overflow-hidden bg-[radial-gradient(circle_at_50%_10%,rgba(17,17,17,0.06),transparent_55%)]"
               >
                 <Image
                   src={img.src}

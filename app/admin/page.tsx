@@ -113,7 +113,7 @@ export default function AdminPage() {
   // Show loading state while checking auth
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center">
+      <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] flex items-center justify-center">
         <p className="text-[#111]/70 font-light">Loading...</p>
       </div>
     );
@@ -122,7 +122,7 @@ export default function AdminPage() {
   // Show login form if not authenticated
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center p-4">
+      <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <div className="border border-[#111] rounded-sm bg-[#f9f9f7] p-8">
             <h1 className="text-2xl font-light text-[#111] mb-2">Admin Login</h1>
@@ -156,7 +156,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f9f9f7] p-4 sm:p-8">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 flex items-center justify-between">
           <div>

@@ -8,7 +8,16 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#f9f9f7]/80 backdrop-blur-md border-b border-[#111]">
+    <nav
+      className="w-full bg-[#f9f9f7] backdrop-blur-sm supports-[backdrop-filter]:bg-[#f9f9f7]/95"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+      }}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -72,7 +81,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden border-t border-[#111]">
+        <div className="md:hidden">
           <div className="px-4 py-4 space-y-3">
             <Link
               href="/"

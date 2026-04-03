@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ProductsPage() {
   return (
-    <main className="min-h-screen bg-[#f9f9f7] px-4 py-10 sm:py-16">
+    <main className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] px-4 py-10 sm:py-16">
       <div className="mx-auto w-full max-w-2xl">
         <header className="mb-10 text-center sm:text-left">
           <h1 className="text-3xl sm:text-4xl font-light tracking-tight text-[#111]">Shop</h1>
@@ -19,7 +19,7 @@ export default function ProductsPage() {
             <Link
               key={p.slug}
               href={`/products/${p.slug}`}
-              className="group border border-[#111] bg-[#f9f9f7] transition-colors hover:bg-[#111]/[0.02]"
+              className="group block"
             >
               <div className="aspect-[4/5] w-full overflow-hidden bg-[radial-gradient(circle_at_50%_15%,rgba(17,17,17,0.06),transparent_55%)]">
                 <Image
@@ -31,7 +31,7 @@ export default function ProductsPage() {
                   priority
                 />
               </div>
-              <div className="border-t border-[#111] p-5 sm:p-6">
+              <div className="pt-6 sm:pt-8">
                 <p className="text-base font-light leading-snug text-[#111]">{p.title}</p>
                 <p className="mt-1 text-sm font-light text-[#111]/80">{p.descriptor}</p>
                 <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {p.color}</p>

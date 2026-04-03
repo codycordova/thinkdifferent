@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function WaitlistPage() {
   return (
-    <main className="min-h-screen bg-[#f9f9f7] px-4 py-10 sm:py-14">
+    <main className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] px-4 py-10 sm:py-14">
       <div className="mx-auto w-full max-w-3xl">
         <Link
           href="/products"

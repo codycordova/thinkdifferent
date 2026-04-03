@@ -78,7 +78,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-[#f9f9f7]">
+      <main className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7]">
         {/* OG-style hero: brand first */}
         <section className="flex min-h-[85vh] flex-col items-center justify-center px-4 py-16 sm:py-24">
           <div className="flex max-w-2xl flex-col items-center text-center">
@@ -121,7 +121,7 @@ export default function Home() {
 
             <Link
               href={`/products/${product.slug}`}
-              className="group mt-12 block w-full max-w-sm border border-[#111] bg-[#f9f9f7] transition-colors hover:bg-[#111]/[0.02]"
+              className="group mx-auto mt-12 block w-full max-w-sm"
             >
               <div className="aspect-[4/5] w-full overflow-hidden bg-[radial-gradient(circle_at_50%_15%,rgba(17,17,17,0.06),transparent_55%)]">
                 <Image
@@ -132,7 +132,7 @@ export default function Home() {
                   className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-[1.01] sm:p-8"
                 />
               </div>
-              <div className="border-t border-[#111] p-5 text-center sm:p-6 sm:text-left">
+              <div className="pt-6 text-center">
                 <p className="text-lg font-light text-[#111]">{product.title}</p>
                 <p className="mt-1 text-sm font-light text-[#111]/80">{product.descriptor}</p>
                 <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {product.color}</p>

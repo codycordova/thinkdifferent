@@ -168,7 +168,7 @@ export default function AdminBuilder() {
   // Show login if not authenticated
   if (isAuthenticated === false) {
     return (
-      <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center">
+      <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] flex items-center justify-center">
         <div className="text-center">
           <p className="text-[#111] mb-4">Please log in to access the builder</p>
           <Button variant="primary" onClick={() => window.location.href = '/admin'}>
@@ -182,14 +182,14 @@ export default function AdminBuilder() {
   // Show loading state
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-[#f9f9f7] flex items-center justify-center">
+      <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7] flex items-center justify-center">
         <p className="text-[#111]">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#f9f9f7]">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f7]">
       <div className="border-b border-[#111]/10 bg-white">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-light text-[#111]">Admin Builder</h1>
@@ -276,7 +276,7 @@ export default function AdminBuilder() {
 
       {/* Save Proposal Modal */}
       {showSaveModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-sm p-6 max-w-md w-full mx-4">
             <h2 className="text-xl font-light text-[#111] mb-4">Save Proposal</h2>
             <div className="space-y-4">

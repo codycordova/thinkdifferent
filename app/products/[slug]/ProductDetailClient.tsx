@@ -34,7 +34,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
   };
 
   return (
-    <div className="mt-8 border border-[#111] p-5 sm:p-6">
+    <div className="mt-10 sm:mt-12">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="w-full sm:max-w-md">
           <p className="text-sm text-[#111]/70 font-light">Select size</p>
@@ -52,12 +52,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                     if (!soldOut) setSize(s);
                   }}
                   className={[
-                    'px-3 py-2 text-sm border font-light transition-colors',
+                    'rounded-sm px-3 py-2 text-sm font-light transition-colors',
                     soldOut
-                      ? 'cursor-not-allowed border-[#111]/25 text-[#111]/35 bg-transparent'
+                      ? 'cursor-not-allowed bg-[#111]/[0.04] text-[#111]/35'
                       : selected
-                        ? 'border-[#111] bg-[#111] text-[#f9f9f7]'
-                        : 'border-[#111] text-[#111] hover:bg-[#111]/5',
+                        ? 'bg-[#111] text-[#f9f9f7]'
+                        : 'bg-[#111]/[0.06] text-[#111] hover:bg-[#111]/10',
                   ].join(' ')}
                   aria-pressed={selected}
                   aria-disabled={soldOut}
