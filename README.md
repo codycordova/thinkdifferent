@@ -22,7 +22,7 @@ A minimal, mobile-first foundation website for **Think Different** clothing bran
 - 🔒 **Secure Lead Storage** - Supabase integration with Row Level Security (RLS)
 - 📋 **Return Policy Page** - Clear, scannable return policy information
 - 🛠️ **Admin Builder** - Drag-and-drop page builder with proposal saving and GitHub PR creation
-- 📷 **Social Links** - Instagram (@uthinkdifferent) and TikTok (@uhinkdifferent)
+- 📷 **Social Links** - Instagram (@uthinkdifferent) and TikTok (@uthinkdifferent)
 
 ## Tech Stack
 
@@ -120,6 +120,7 @@ thinkdifferent/
 |----------|-------------|----------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Your Supabase publishable key | Yes |
+| `NEXT_PUBLIC_DROP_DATETIME` | Drop datetime (ISO string). Powers `/waitlist` countdown. If unset/invalid, countdown defaults to 7 days from first page load. | No |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (admin operations) | For admin builder |
 | `ADMIN_PASSWORD` | Password for `/admin` routes | For admin access |
 | `GITHUB_APP_ID` | GitHub App ID | For PR creation from builder |

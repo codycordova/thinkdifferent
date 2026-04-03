@@ -32,6 +32,12 @@ export default function Navigation() {
               Home
             </Link>
             <Link
+              href="/products"
+              className="text-sm font-light text-[#111] hover:underline transition-all"
+            >
+              Shop
+            </Link>
+            <Link
               href="/return-policy"
               className="text-sm font-light text-[#111] hover:underline transition-all"
             >
@@ -74,6 +80,13 @@ export default function Navigation() {
               className="block text-base font-light text-[#111] hover:underline transition-all"
             >
               Home
+            </Link>
+            <Link
+              href="/products"
+              onClick={() => setIsOpen(false)}
+              className="block text-base font-light text-[#111] hover:underline transition-all"
+            >
+              Shop
             </Link>
             <Link
               href="/return-policy"
