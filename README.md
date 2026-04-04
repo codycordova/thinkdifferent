@@ -17,7 +17,7 @@ A minimal, mobile-first storefront for **Think Different**: homepage, shop, prod
 ## Features
 
 - **Shop & product pages** — Catalog and per-product views with sizes, inventory hints, and “Buy now” → waitlist
-- **Transparent product art** — Front/back hoodie PNGs (`public/frontside_transparent.PNG`, `public/backside_transparent.PNG`)
+- **Transparent product art** — Front/back hoodie WebPs (`public/frontside_transparent.webp`, `public/backside_transparent.webp`)
 - **Minimal UI** — Paper white (`#f9f9f7`) and soft black (`#111`); Caveat for handwritten accents; piece titles styled as named works
 - **Discount modal** — Name + phone, THINK10 code; optional timed / scroll trigger
 - **Waitlist** — Name, email, size; optional countdown

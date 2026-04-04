@@ -110,7 +110,7 @@ export default function Home() {
               >
                 <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
                   <Image
-                    src={product.images[0]?.src ?? '/frontside_transparent.PNG'}
+                    src={product.images[0]?.src ?? '/frontside_transparent.webp'}
                     alt={product.images[0]?.alt ?? `${product.title} ${product.descriptor}`}
                     width={1200}
                     height={1500}

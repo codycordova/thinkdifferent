@@ -24,7 +24,7 @@ export default function ProductsPage() {
             >
               <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
                 <Image
-                  src={p.images[0]?.src ?? '/frontside_transparent.PNG'}
+                  src={p.images[0]?.src ?? '/frontside_transparent.webp'}
                   alt={p.images[0]?.alt ?? `${p.title} ${p.descriptor}`}
                   width={1200}
                   height={1500}
