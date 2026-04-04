@@ -1,44 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import { requireAuth } from '@/lib/admin-auth';
-
-export async function GET() {
-  try {
-    // Check authentication
-    const authResult = await requireAuth();
-    if (!authResult.authenticated) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from('leads')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { error: `Database error: ${error.message || 'Failed to fetch leads.'}` },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json(
-      { success: true, data },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('API error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json(
-      { error: `Internal server error: ${errorMessage}` },
-      { status: 500 }
-    );
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {

@@ -2,12 +2,12 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are currently being supported with security updates.
+We keep it a buck 100 at 0.1.6 and beyond. Soo woop.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.1.x   | :white_check_mark: |
-| < 0.1   | :x:                |
+| 0.1.6   | :white_check_mark: |
+| < 0.1.6 | :x:                |
 
 ## Reporting a Vulnerability
 

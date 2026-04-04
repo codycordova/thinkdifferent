@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import ProductPieceTitle from '@/components/ProductPieceTitle';
 import { PRODUCTS, getShopAvailabilitySummary } from '@/lib/products';
 
 export const metadata = {
@@ -21,9 +22,9 @@ export default function ProductsPage() {
               href={`/products/${p.slug}`}
               className="group block"
             >
-              <div className="aspect-[4/5] w-full overflow-hidden bg-[radial-gradient(circle_at_50%_15%,rgba(17,17,17,0.06),transparent_55%)]">
+              <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
                 <Image
-                  src={p.images[0]?.src ?? '/createdtocreate_front-Picsart-BackgroundRemover.jpg'}
+                  src={p.images[0]?.src ?? '/frontside_transparent.PNG'}
                   alt={p.images[0]?.alt ?? `${p.title} ${p.descriptor}`}
                   width={1200}
                   height={1500}
@@ -32,7 +33,7 @@ export default function ProductsPage() {
                 />
               </div>
               <div className="pt-6 sm:pt-8">
-                <p className="text-base font-light leading-snug text-[#111]">{p.title}</p>
+                <ProductPieceTitle title={p.title} as="p" className="text-base sm:text-lg leading-snug" />
                 <p className="mt-1 text-sm font-light text-[#111]/80">{p.descriptor}</p>
                 <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {p.color}</p>
                 <p className="mt-3 inline-block rounded-sm bg-sky-100 px-2 py-1 text-sm font-light text-[#111]">

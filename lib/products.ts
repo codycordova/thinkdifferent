@@ -36,8 +36,8 @@ export const PRODUCTS: Product[] = [
     priceCents: 6000,
     currency: 'USD',
     images: [
-      { src: '/createdtocreate_front-Picsart-BackgroundRemover.jpg', alt: 'Created to Create hoodie (front)' },
-      { src: '/createdtocreate_back-Picsart-BackgroundRemover.jpg', alt: 'Created to Create hoodie (back)' },
+      { src: '/frontside_transparent.PNG', alt: 'Created to Create hoodie (front)' },
+      { src: '/backside_transparent.PNG', alt: 'Created to Create hoodie (back)' },
     ],
     sizes: ['Small', 'Medium', 'Large', 'XL', '2X', '3X'],
     inventoryBySize: {

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ProductPieceTitle from '@/components/ProductPieceTitle';
 import { getProductBySlug } from '@/lib/products';
 import ProductDetailClient from './ProductDetailClient';
 
@@ -28,7 +29,7 @@ export default async function ProductDetailPage(props: { params: Promise<Params>
             {product.images.map((img) => (
               <div
                 key={img.src}
-                className="overflow-hidden bg-[radial-gradient(circle_at_50%_10%,rgba(17,17,17,0.06),transparent_55%)]"
+                className="overflow-hidden bg-transparent"
               >
                 <Image
                   src={img.src}
@@ -43,7 +44,11 @@ export default async function ProductDetailPage(props: { params: Promise<Params>
           </div>
 
           <div className="order-1 text-center lg:order-2 lg:text-left">
-            <h1 className="text-2xl sm:text-3xl font-light text-[#111] leading-snug">{product.title}</h1>
+            <ProductPieceTitle
+              title={product.title}
+              as="h1"
+              className="block w-full text-2xl sm:text-3xl leading-snug"
+            />
             <p className="mt-2 text-base font-light text-[#111]/80">{product.descriptor}</p>
             <p className="mt-1 text-sm font-light text-[#111]/70">
               Color: {product.color}

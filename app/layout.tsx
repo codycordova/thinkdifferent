@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import SiteFooter from "@/components/SiteFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
       >
         <Navigation />
         <div className="pt-16">{children}</div>
+        <SiteFooter />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -6,12 +6,13 @@ import Link from 'next/link';
 import EmailOptInModal from '@/components/EmailOptInModal';
 import { Button } from '@/components/ui/Button';
 import { PRODUCTS } from '@/lib/products';
+import ProductPieceTitle from '@/components/ProductPieceTitle';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const doodleRef = useRef<HTMLDivElement>(null);
-  const product = useMemo(() => PRODUCTS[0], []);
+  const product = useMemo(() => PRODUCTS.at(0), []);
 
   useEffect(() => {
     const modalShown = localStorage.getItem('thinkdifferent_modal_shown');
@@ -102,48 +103,43 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="mt-12 w-full max-w-4xl">
-              <div className="grid gap-8 text-center sm:grid-cols-3">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-light text-[#111]">Creativity</h3>
-                  <p className="text-sm text-[#111]/70 font-light">Fostering imagination and innovation</p>
+            {product ? (
+              <Link
+                href={`/products/${product.slug}`}
+                className="group mx-auto mt-12 block w-full max-w-sm"
+              >
+                <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
+                  <Image
+                    src={product.images[0]?.src ?? '/frontside_transparent.PNG'}
+                    alt={product.images[0]?.alt ?? `${product.title} ${product.descriptor}`}
+                    width={1200}
+                    height={1500}
+                    className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-[1.01] sm:p-8"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-light text-[#111]">Individuality</h3>
-                  <p className="text-sm text-[#111]/70 font-light">Celebrating those who think different</p>
+                <div className="pt-6 text-center">
+                  <ProductPieceTitle title={product.title} as="p" className="text-lg sm:text-xl leading-snug" />
+                  <p className="mt-1 text-sm font-light text-[#111]/80">{product.descriptor}</p>
+                  <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {product.color}</p>
+                  <p className="mt-3 inline-block rounded-sm bg-sky-100 px-2 py-1 text-sm font-light text-[#111]">
+                    ${(product.priceCents / 100).toFixed(2)}
+                  </p>
+                  <p className="mt-4 text-xs font-light uppercase tracking-[0.2em] text-[#111]/50">
+                    View product →
+                  </p>
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-light text-[#111]">Curiosity</h3>
-                  <p className="text-sm text-[#111]/70 font-light">Questioning assumptions, exploring ideas</p>
-                </div>
+              </Link>
+            ) : (
+              <div className="mx-auto mt-12 w-full max-w-sm text-center">
+                <p className="text-sm font-light text-[#111]/70">Shop updates are on the way.</p>
+                <Link
+                  href="/products"
+                  className="mt-4 inline-block text-base font-light text-[#111] underline decoration-[#111]/30 underline-offset-4 transition-colors hover:text-[#111]/80"
+                >
+                  Go to shop →
+                </Link>
               </div>
-            </div>
-
-            <Link
-              href={`/products/${product.slug}`}
-              className="group mx-auto mt-12 block w-full max-w-sm"
-            >
-              <div className="aspect-[4/5] w-full overflow-hidden bg-[radial-gradient(circle_at_50%_15%,rgba(17,17,17,0.06),transparent_55%)]">
-                <Image
-                  src={product.images[0]?.src ?? '/createdtocreate_front-Picsart-BackgroundRemover.jpg'}
-                  alt={product.images[0]?.alt ?? `${product.title} ${product.descriptor}`}
-                  width={1200}
-                  height={1500}
-                  className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-[1.01] sm:p-8"
-                />
-              </div>
-              <div className="pt-6 text-center">
-                <p className="text-lg font-light text-[#111]">{product.title}</p>
-                <p className="mt-1 text-sm font-light text-[#111]/80">{product.descriptor}</p>
-                <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {product.color}</p>
-                <p className="mt-3 inline-block rounded-sm bg-sky-100 px-2 py-1 text-sm font-light text-[#111]">
-                  ${(product.priceCents / 100).toFixed(2)}
-                </p>
-                <p className="mt-4 text-xs font-light uppercase tracking-[0.2em] text-[#111]/50">
-                  View product →
-                </p>
-              </div>
-            </Link>
+            )}
 
             <div className="mt-8">
               <Button variant="primary" onClick={handleOpenModal} className="text-lg px-8 py-4">

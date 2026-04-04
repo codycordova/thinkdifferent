@@ -1,162 +1,143 @@
-# Think Different - Clothing Brand Website
+# Think Different — Clothing Brand Website
 
-A minimal, mobile-first foundation website for **Think Different** clothing brand. Built to build anticipation, collect leads, and showcase brand values before product launch.
+**Version 0.1.6** — Public launch.
+
+A minimal, mobile-first storefront for **Think Different**: homepage, shop, product detail pages, waitlist flow, discount capture, and return policy. Built with Next.js.
 
 ## Brand Vision
 
 **Think Different** fosters creativity, celebrates individuality, and encourages unique ideas. The brand challenges the status quo and acknowledges those who see the world differently.
 
 ### Core Values
+
 - **Creativity**: Fostering imagination and innovation
-- **Individuality**: Celebrating those who see differently
+- **Individuality**: Celebrating those who think different
 - **Curiosity**: Questioning assumptions, exploring ideas
 
 ## Features
 
-- 🎨 **Minimal Black & White Design** - Paper white (#f9f9f7) and soft black (#111) color scheme
-- 📱 **Mobile-First** - Optimized for mobile devices with responsive design
-- 📧 **Lead Collection** - Email/phone opt-in modal with 10% discount code activation (THINK10)
-- 🎭 **Mystery & Traction** - "Coming Soon" messaging to build anticipation
-- ✍️ **Handwritten Typography** - Caveat font for accent text (taglines)
-- 🎬 **Micro-Animations** - Subtle fade-ins and button press effects
-- 🔒 **Secure Lead Storage** - Supabase integration with Row Level Security (RLS)
-- 📋 **Return Policy Page** - Clear, scannable return policy information
-- 🛠️ **Admin Builder** - Drag-and-drop page builder with proposal saving and GitHub PR creation
-- 📷 **Social Links** - Instagram (@uthinkdifferent) and TikTok (@uthinkdifferent)
+- **Shop & product pages** — Catalog and per-product views with sizes, inventory hints, and “Buy now” → waitlist
+- **Transparent product art** — Front/back hoodie PNGs (`public/frontside_transparent.PNG`, `public/backside_transparent.PNG`)
+- **Minimal UI** — Paper white (`#f9f9f7`) and soft black (`#111`); Caveat for handwritten accents; piece titles styled as named works
+- **Discount modal** — Name + phone, THINK10 code; optional timed / scroll trigger
+- **Waitlist** — Name, email, size; optional countdown
+- **Return policy** — Standalone `/return-policy` page
+- **Site footer** — Creativity, Individuality, Curiosity pillars on every page
+- **Social** — Instagram and TikTok in the homepage footer area
+
+## Security (high level)
+
+- **No admin panel** in this repo — no `/admin` or internal dashboards in the storefront
+- **Secrets** — Never commit API keys or service credentials; configure only in your host’s environment (e.g. Vercel)
+- **Vulnerability reports** — See [SECURITY.md](SECURITY.md)
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS 4
-- **Database**: Supabase (PostgreSQL)
-- **Form Handling**: React Hook Form + Zod validation
-- **Fonts**: Geist Sans (main), Caveat (handwritten accent)
-- **TypeScript**: Full type safety
+- **Forms**: React Hook Form + Zod
+- **Fonts**: Geist Sans, Caveat (Google Fonts via `next/font`)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm, yarn, pnpm, or bun
-- Supabase account (for lead collection)
 
-### Installation
+### Run locally
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd thinkdifferent
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Set up environment variables:
-Create a `.env.local` file in the root directory:
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_publishable_default_key
-```
+3. Start the dev server:
 
-4. Set up Supabase database:
-   - Create a new Supabase project
-   - Run the SQL schema in the Supabase SQL editor (see `supabase-schema.sql` if available)
-   - The schema creates a `leads` table with secure RLS policies
-
-5. Run the development server:
 ```bash
 npm run dev
 ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:3000](http://localhost:3000)
+
+No database or SQL setup is required to explore the UI. Lead capture and production APIs are configured in your deployment environment when you go live.
 
 ## Project Structure
 
 ```
 thinkdifferent/
 ├── app/
-│   ├── admin/              # Admin dashboard & builder
-│   │   ├── builder/         # Drag-and-drop page builder
-│   │   └── page.tsx         # Admin login
 │   ├── api/
-│   │   ├── admin/          # Admin & proposals API
-│   │   └── leads/          # Lead collection API
-│   ├── return-policy/      # Return policy page
-│   ├── globals.css         # Global styles & animations
-│   ├── layout.tsx          # Root layout with fonts
-│   └── page.tsx            # Homepage
+│   │   └── leads/
+│   ├── products/
+│   ├── waitlist/
+│   ├── return-policy/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
 ├── components/
-│   ├── admin/              # Admin builder components
-│   ├── ui/                 # Reusable UI components
-│   ├── EmailOptInModal.tsx  # Lead collection modal
-│   └── Navigation.tsx      # Mobile-first navigation
-└── lib/
-    ├── supabase.ts         # Supabase client
-    ├── github-app.ts       # GitHub App auth for PR creation
-    └── types/              # Shared types
+│   ├── ui/
+│   ├── EmailOptInModal.tsx
+│   ├── Navigation.tsx
+│   ├── SiteFooter.tsx
+│   └── ProductPieceTitle.tsx
+├── lib/
+│   ├── supabase.ts
+│   └── products.ts
+└── public/
 ```
 
-## Key Features Explained
+## Behavior Notes
 
-### Lead Collection Modal
-- Appears once per user (localStorage tracking)
-- Triggers after 4 seconds or 50% scroll
-- Collects email OR phone number
-- Activates 10% discount code "THINK10"
-- Stores leads securely in Supabase
+### Discount modal (`EmailOptInModal`)
 
-### Design Philosophy
-- **Less is more**: Minimal design, no clutter
-- **Color from products**: UI is black/white; color comes from product images
-- **Mobile-first**: Designed for mobile, enhanced for desktop
-- **Micro-interactions**: Subtle animations for better UX
+- Shown once per browser (localStorage)
+- Can open after a delay and/or around 50% scroll (`app/page.tsx`)
+- Collects **name** and **phone**; shows **THINK10** after submit
 
-## Environment Variables
+### Waitlist (`/waitlist`)
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Your Supabase publishable key | Yes |
-| `NEXT_PUBLIC_DROP_DATETIME` | Drop datetime (ISO string). Powers `/waitlist` countdown. If unset/invalid, countdown defaults to 7 days from first page load. | No |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (admin operations) | For admin builder |
-| `ADMIN_PASSWORD` | Password for `/admin` routes | For admin access |
-| `GITHUB_APP_ID` | GitHub App ID | For PR creation from builder |
-| `GITHUB_APP_PRIVATE_KEY` | GitHub App private key (PEM, single line) | For PR creation |
-| `GITHUB_APP_INSTALLATION_ID` | GitHub App installation ID | For PR creation |
-| `GITHUB_REPO_OWNER` | Repository owner (e.g. codycordova) | Optional |
-| `GITHUB_REPO_NAME` | Repository name (e.g. thinkdifferent) | Optional |
+- Collects **first name**, **last name**, **email**; optional **product** / **size** from query params after “Buy now”
+
+### Design
+
+- Less is more; product photography adds color on the neutral UI
+- Mobile-first layout (product copy above images on small screens)
 
 ## Build & Deploy
 
-### Build for Production
+### Production build
+
 ```bash
 npm run build
 ```
 
-### Start Production Server
+### Production server
+
 ```bash
 npm start
 ```
 
-### Deploy
-The easiest way to deploy is using [Vercel](https://vercel.com):
-1. Push your code to GitHub
-2. Import the repository in Vercel
-3. Add your environment variables
-4. Deploy!
+### Deploy (e.g. Vercel)
+
+1. Push to GitHub (or your Git host)
+2. Import the repo in [Vercel](https://vercel.com)
+3. Add any environment variables your deployment needs (via the host’s dashboard — not in this README)
+4. Deploy
 
 ## Social
 
 - **Instagram**: [@uthinkdifferent](https://instagram.com/uthinkdifferent)
-- **TikTok**: [@uhinkdifferent](https://tiktok.com/@uhinkdifferent)
-
-## Security
-
-See [SECURITY.md](SECURITY.md) for supported versions and how to report vulnerabilities.
+- **TikTok**: [@uthinkdifferent](https://www.tiktok.com/@uthinkdifferent)
 
 ## License
 
-Private project - All rights reserved
+Private project — all rights reserved.

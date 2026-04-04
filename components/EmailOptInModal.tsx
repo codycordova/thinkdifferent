@@ -77,7 +77,7 @@ export default function EmailOptInModal({ isOpen, onClose }: EmailOptInModalProp
         }),
       });
 
-      const responseData = await response.json();
+      const responseData: Record<string, unknown> = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         console.warn('Failed to save to database:', responseData.error);
