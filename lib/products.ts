@@ -29,6 +29,29 @@ const SIZE_ABBREV: Record<ProductSize, string> = {
 
 export const PRODUCTS: Product[] = [
   {
+    slug: 'think-different-regular-fit-tee-black-acid-wash',
+    title: 'Think Different',
+    descriptor: 'Regular Fit Tee',
+    color: 'Black Acid Wash',
+    priceCents: 4000,
+    currency: 'USD',
+    images: [
+      {
+        src: '/think-different-regular-fit-tee-black-acid-wash.webp',
+        alt: 'Think Different regular fit tee in black acid wash',
+      },
+    ],
+    sizes: ['Small', 'Medium', 'Large', 'XL', '2X', '3X'],
+    inventoryBySize: {
+      Small: 0,
+      Medium: 0,
+      Large: 3,
+      XL: 0,
+      '2X': 3,
+      '3X': 2,
+    },
+  },
+  {
     slug: 'created-to-create-oversized-hoodie-grey',
     title: 'Created to Create',
     descriptor: 'Oversized Hoodie',
@@ -43,10 +66,10 @@ export const PRODUCTS: Product[] = [
     inventoryBySize: {
       Small: 0,
       Medium: 0,
-      Large: 2,
+      Large: 0,
       XL: 3,
-      '2X': 3,
-      '3X': 4,
+      '2X': 2,
+      '3X': 3,
     },
   },
 ];

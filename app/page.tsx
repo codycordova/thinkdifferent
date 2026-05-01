@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import EmailOptInModal from '@/components/EmailOptInModal';
@@ -12,8 +12,6 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const doodleRef = useRef<HTMLDivElement>(null);
-  const product = useMemo(() => PRODUCTS.at(0), []);
-
   useEffect(() => {
     const modalShown = localStorage.getItem('thinkdifferent_modal_shown');
     if (modalShown === 'true') {
@@ -103,32 +101,37 @@ export default function Home() {
               </p>
             </div>
 
-            {product ? (
-              <Link
-                href={`/products/${product.slug}`}
-                className="group mx-auto mt-12 block w-full max-w-sm"
-              >
-                <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
-                  <Image
-                    src={product.images[0]?.src ?? '/frontside_transparent.webp'}
-                    alt={product.images[0]?.alt ?? `${product.title} ${product.descriptor}`}
-                    width={1200}
-                    height={1500}
-                    className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-[1.01] sm:p-8"
-                  />
-                </div>
-                <div className="pt-6 text-center">
-                  <ProductPieceTitle title={product.title} as="p" className="text-lg sm:text-xl leading-snug" />
-                  <p className="mt-1 text-sm font-light text-[#111]/80">{product.descriptor}</p>
-                  <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {product.color}</p>
-                  <p className="mt-3 inline-block rounded-sm bg-sky-100 px-2 py-1 text-sm font-light text-[#111]">
-                    ${(product.priceCents / 100).toFixed(2)}
-                  </p>
-                  <p className="mt-4 text-xs font-light uppercase tracking-[0.2em] text-[#111]/50">
-                    View product →
-                  </p>
-                </div>
-              </Link>
+            {PRODUCTS.length > 0 ? (
+              <div className="mx-auto mt-12 flex w-full max-w-2xl flex-col gap-14">
+                {PRODUCTS.map((product) => (
+                  <Link
+                    key={product.slug}
+                    href={`/products/${product.slug}`}
+                    className="group mx-auto block w-full max-w-sm"
+                  >
+                    <div className="aspect-[4/5] w-full overflow-hidden bg-transparent">
+                      <Image
+                        src={product.images[0]?.src ?? '/frontside_transparent.webp'}
+                        alt={product.images[0]?.alt ?? `${product.title} ${product.descriptor}`}
+                        width={1200}
+                        height={1500}
+                        className="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-[1.01] sm:p-8"
+                      />
+                    </div>
+                    <div className="pt-6 text-center">
+                      <ProductPieceTitle title={product.title} as="p" className="text-lg sm:text-xl leading-snug" />
+                      <p className="mt-1 text-sm font-light text-[#111]/80">{product.descriptor}</p>
+                      <p className="mt-0.5 text-xs font-light text-[#111]/70">Color: {product.color}</p>
+                      <p className="mt-3 inline-block rounded-sm bg-sky-100 px-2 py-1 text-sm font-light text-[#111]">
+                        ${(product.priceCents / 100).toFixed(2)}
+                      </p>
+                      <p className="mt-4 text-xs font-light uppercase tracking-[0.2em] text-[#111]/50">
+                        View product →
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             ) : (
               <div className="mx-auto mt-12 w-full max-w-sm text-center">
                 <p className="text-sm font-light text-[#111]/70">Shop updates are on the way.</p>
