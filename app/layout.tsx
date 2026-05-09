@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -32,19 +33,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const h = await headers();
+  const locked = h.get("x-td-locked") === "1";
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
       >
-        <Navigation />
-        <div className="pt-16">{children}</div>
-        <SiteFooter />
+        {!locked && <Navigation />}
+        <div className={locked ? "" : "pt-16"}>{children}</div>
+        {!locked && <SiteFooter />}
         <Analytics />
         <SpeedInsights />
       </body>

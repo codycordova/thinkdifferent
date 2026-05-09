@@ -106,11 +106,53 @@ thinkdifferent/
 ### Waitlist (`/waitlist`)
 
 - Collects **first name**, **last name**, **email**; optional **product** / **size** from query params after “Buy now”
+- Optional env `NEXT_PUBLIC_DROP_DATETIME` (ISO 8601): when set, `/waitlist` shows a live countdown to that moment; otherwise it falls back to a per-browser 7-day timer in localStorage.
 
 ### Design
 
 - Less is more; product photography adds color on the neutral UI
 - Mobile-first layout (product copy above images on small screens)
+
+## Pre-launch gate (password-protected landing page)
+
+While the site isn't ready for the public, every URL is rewritten to `/launching` — a "drop coming soon" landing page with waitlist signup (no live countdown). The owner can enter a password to unlock the real site for their browser.
+
+### How it works
+
+- **Server-enforced** via `proxy.ts` (Next.js proxy). A signed HMAC cookie (`td_unlock`) is the only way past the gate; tampered or missing cookies cause a rewrite to `/launching`.
+- **`/api/leads`** is left unguarded so the public can submit waitlist signups while locked.
+- **`/api/unlock`** validates the owner password (constant-time compare) and sets the signed cookie (httpOnly, sameSite=lax, 30-day max-age, secure in prod).
+- **`/api/lock`** clears the cookie — useful for testing the gate without changing env vars.
+
+### Required environment variables
+
+Add to `.env.local` (and to Vercel project settings for production):
+
+```bash
+SITE_PASSWORD=pick-a-strong-password
+SITE_UNLOCK_SECRET=run_node_-e_to_generate_one
+SITE_GATE_ENABLED=true
+```
+
+Generate a fresh `SITE_UNLOCK_SECRET` (any time you want to invalidate every existing unlock session):
+
+```powershell
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+### Owner workflow
+
+1. Visit any URL — gate appears.
+2. Click "Password Protected" at the bottom of the gate page → enter `SITE_PASSWORD` → real site loads.
+3. Cookie persists 30 days per browser. To re-test the gate without clearing cookies manually, hit `POST /api/lock`:
+
+```powershell
+curl.exe -X POST http://localhost:3000/api/lock
+```
+
+### Taking the gate down at launch
+
+Set `SITE_GATE_ENABLED=false` in Vercel and redeploy. The middleware short-circuits and every URL serves normally.
 
 ## Build & Deploy
 
