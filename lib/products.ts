@@ -29,6 +29,29 @@ const SIZE_ABBREV: Record<ProductSize, string> = {
 
 export const PRODUCTS: Product[] = [
   {
+    slug: 'individuality-sleeveless-tee-grey-acid-wash',
+    title: 'Individuality',
+    descriptor: 'Sleeveless Tee',
+    color: 'Grey Acid Wash',
+    priceCents: 4000,
+    currency: 'USD',
+    images: [
+      {
+        src: '/td_individuality_shirt.webp',
+        alt: 'Individuality sleeveless tee in grey acid wash',
+      },
+    ],
+    sizes: ['Small', 'Medium', 'Large', 'XL', '2X', '3X'],
+    inventoryBySize: {
+      Small: 2,
+      Medium: 3,
+      Large: 3,
+      XL: 2,
+      '2X': 2,
+      '3X': 1,
+    },
+  },
+  {
     slug: 'think-different-regular-fit-tee-black-acid-wash',
     title: 'Think Different',
     descriptor: 'Regular Fit Tee',
