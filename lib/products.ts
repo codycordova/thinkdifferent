@@ -43,12 +43,12 @@ export const PRODUCTS: Product[] = [
     ],
     sizes: ['Small', 'Medium', 'Large', 'XL', '2X', '3X'],
     inventoryBySize: {
-      Small: 2,
+      Small: 7,
       Medium: 3,
-      Large: 3,
-      XL: 2,
-      '2X': 2,
-      '3X': 1,
+      Large: 5,
+      XL: 4,
+      '2X': 3,
+      '3X': 3,
     },
   },
   {
@@ -68,7 +68,7 @@ export const PRODUCTS: Product[] = [
     inventoryBySize: {
       Small: 0,
       Medium: 0,
-      Large: 2,
+      Large: 1,
       XL: 0,
       '2X': 3,
       '3X': 0,
