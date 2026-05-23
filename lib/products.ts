@@ -54,14 +54,14 @@ export const PRODUCTS: Product[] = [
   {
     slug: 'think-different-regular-fit-tee-black-acid-wash',
     title: 'Think Different',
-    descriptor: 'Regular Fit Tee',
+    descriptor: 'Distressed Tee',
     color: 'Black Acid Wash',
     priceCents: 5000,
     currency: 'USD',
     images: [
       {
         src: '/think-different-regular-fit-tee-black-acid-wash.webp',
-        alt: 'Think Different regular fit tee in black acid wash',
+        alt: 'Think Different distressed tee in black acid wash',
       },
     ],
     sizes: ['Small', 'Medium', 'Large', 'XL', '2X', '3X'],
